@@ -24,6 +24,7 @@ allprojects {
 
         jcenter()
         mavenCentral()
+        google()
     }
 
     project.ext.set("publishGroupId", group)
