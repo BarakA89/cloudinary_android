@@ -28,6 +28,7 @@ android {
 
 dependencies {
     implementation project(':lib')
+    implementation 'android.arch.work:work-runtime:1.0.0'
     implementation "com.android.support:appcompat-v7:${androidSupportVersion}"
     implementation "com.android.support.constraint:constraint-layout:1.1.3"
     implementation "com.android.support:recyclerview-v7:${androidSupportVersion}"

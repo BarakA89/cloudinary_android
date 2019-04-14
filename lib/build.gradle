@@ -42,12 +42,7 @@ dependencies {
     api "com.cloudinary:cloudinary-core:${cloudinaryLibsVersion}"
 
     implementation "com.android.support:support-compat:${androidSupportVersion}"
-    implementation ('android.arch.work:work-runtime:1.0.0', {
-        exclude group: 'com.android.support', module: 'support-fragment'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-    })
     implementation "com.android.support:support-annotations:${androidSupportVersion}"
-    implementation "com.android.support:support-fragment:${androidSupportVersion}"
 
     implementation('com.evernote:android-job:1.3.0-rc1', {
         exclude group: 'com.android.support', module: 'support-compat'
@@ -61,7 +56,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    androidTestImplementation "com.android.support:support-core-utils:${androidSupportVersion}"
     androidTestImplementation "com.android.support.test:runner:1.0.2"
     androidTestImplementation "com.android.support.test:rules:1.0.2"
     androidTestImplementation "org.hamcrest:hamcrest-library:1.3"

@@ -17,7 +17,7 @@ The library requires Android version 4.0.3 (Ice Cream Sandwich) and up.
 ## Gradle Integration
 Add the following dependency to your build.gradle:
 
-`compile group: 'com.cloudinary', name: 'cloudinary-android', version: '1.26.0'`
+`implementation group: 'com.cloudinary', name: 'cloudinary-android', version: '1.26.0'`
 
 ## Manual Setup ######################################################################
 Download cloudinary-android-1.26.0.jar from [here](http://central.maven.org/maven2/com/cloudinary/cloudinary-android/1.26.0/cloudinary-android-1.26.0.aar) and cloudinary-core-1.14.0.jar from [here](http://central.maven.org/maven2/com/cloudinary/cloudinary-core/1.14.0/cloudinary-core-1.14.0.jar) and put them in your libs folder.
@@ -124,6 +124,10 @@ Same goes for Twitter:
 The entry point for upload operations is the `MediaManager.get().upload()` call. All upload operations are dispatched to a background queue, with 
 a set of fully customizable rules and limits letting you choose when each upload request should actually run. Requests are automatically rescheduled to be
 retried later if a recoverable error is encountered (e.g. network disconnections, timeouts).
+Note: This library relies on Evernote's AndroidJob for background work handling. As of their latest version, Android WorkManager is supported
+as the underlying mechanism. When using cloudinary-android version 1.27 and above, this can be activated by adding the following dependency to your `build.gradle`:
+
+    implementation 'android.arch.work:work-runtime:1.0.0'
 
 The upload results are dispatched asynchronously using `UploadCallback`. Global callbacks can be defined, as well as specific callbacks per request.
 Note: In order to receive global callbacks even when the app is already shut down, or in the background, the `ListenerService` class can be extended and registered in the manifest (see the class for further instructions). 
