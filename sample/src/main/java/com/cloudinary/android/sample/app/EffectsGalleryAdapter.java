@@ -69,12 +69,7 @@ class EffectsGalleryAdapter extends RecyclerView.Adapter<EffectsGalleryAdapter.I
         Url baseUrl = MediaManager.get().url().format("webp").resourceType(resourceType).publicId(data.getPublicId()).transformation(data.getTransformation());
         MediaManager.get().responsiveUrl(AUTO_FILL)
                 .stepSize(50)
-                .generate(baseUrl, holder.imageView, new ResponsiveUrl.Callback() {
-                    @Override
-                    public void onUrlReady(Url url) {
-                        Picasso.get().load(url.generate()).placeholder(R.drawable.placeholder).into(holder.imageView);
-                    }
-                });
+                .generate(baseUrl, holder.imageView);
 
         if (selected != null && selected.equals(data)) {
             holder.selection.setVisibility(View.VISIBLE);

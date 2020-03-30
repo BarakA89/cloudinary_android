@@ -96,12 +96,56 @@ public class ResponsiveUrl {
     /**
      * Generate the modified url.
      *
+     * <p>Note: this is a synchronous {@link #generate(String, View, Callback)}, which uses
+     * the MediaManager's configured {@link DownloadStrategy}.</p>
+     *
+     * @throws IllegalStateException if a {@link DownloadStrategy} hasn't been configured yet.
+     */
+    public void generate(final String publicId, final View view) {
+        final DownloadStrategy downloadStrategy = MediaManager.get().getDownloadStrategy();
+        if (downloadStrategy == null) {
+            throw new IllegalStateException("Must set a download strategy before using this overload");
+        } else {
+            generate(cloudinary.url().publicId(publicId), view, new Callback() {
+                @Override
+                public void onUrlReady(Url url) {
+                    downloadStrategy.download(url, view);
+                }
+            });
+        }
+    }
+
+    /**
+     * Generate the modified url.
+     *
      * @param publicId The public id of the cloudinary resource
      * @param view     The view to adapt the resource dimensions to.
      * @param callback Callback to called when the modified Url is ready.
      */
     public void generate(String publicId, final View view, final Callback callback) {
         generate(cloudinary.url().publicId(publicId), view, callback);
+    }
+
+    /**
+     * Generate the modified url.
+     *
+     * <p>Note: this is a synchronous {@link #generate(Url, View, Callback)} which uses
+     * the MediaManager's configured {@link DownloadStrategy}.</p>
+     *
+     * @throws IllegalStateException if a {@link DownloadStrategy} hasn't been configured yet.
+     */
+    public void generate(final Url baseUrl, final View view) throws IllegalStateException {
+        final DownloadStrategy downloadStrategy = MediaManager.get().getDownloadStrategy();
+        if (downloadStrategy == null) {
+            throw new IllegalStateException("Must set a download strategy before using this overload");
+        } else {
+            generate(baseUrl, view, new Callback() {
+                @Override
+                public void onUrlReady(Url url) {
+                    downloadStrategy.download(url, view);
+                }
+            });
+        }
     }
 
     /**

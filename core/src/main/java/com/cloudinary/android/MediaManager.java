@@ -57,6 +57,7 @@ public class MediaManager {
     private final ExecutorService executor;
 
     private GlobalUploadPolicy globalUploadPolicy = GlobalUploadPolicy.defaultPolicy();
+    private DownloadStrategy downloadStrategy;
 
     private MediaManager(@NonNull Context context, @Nullable SignatureProvider signatureProvider, @Nullable Map config) {
         executor = new ThreadPoolExecutor(4, 4,
@@ -441,5 +442,13 @@ public class MediaManager {
 
     void execute(Runnable runnable) {
         executor.execute(runnable);
+    }
+
+    DownloadStrategy getDownloadStrategy() {
+        return downloadStrategy;
+    }
+
+    public void setDownloadStrategy(DownloadStrategy downloadStrategy) {
+        this.downloadStrategy = downloadStrategy;
     }
 }
