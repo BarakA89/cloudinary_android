@@ -15,6 +15,8 @@ import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
 import com.cloudinary.android.callback.UploadResult;
 import com.cloudinary.android.callback.UploadStatus;
+import com.cloudinary.android.downloader.DownloadRequestBuilder;
+import com.cloudinary.android.downloader.DownloadRequestFactory;
 import com.cloudinary.android.payload.ByteArrayPayload;
 import com.cloudinary.android.payload.FilePayload;
 import com.cloudinary.android.payload.LocalUriPayload;
@@ -57,6 +59,7 @@ public class MediaManager {
     private final ExecutorService executor;
 
     private GlobalUploadPolicy globalUploadPolicy = GlobalUploadPolicy.defaultPolicy();
+    private DownloadRequestFactory downloadRequestFactory;
 
     private MediaManager(@NonNull Context context, @Nullable SignatureProvider signatureProvider, @Nullable Map config) {
         executor = new ThreadPoolExecutor(4, 4,
@@ -442,4 +445,14 @@ public class MediaManager {
     void execute(Runnable runnable) {
         executor.execute(runnable);
     }
+
+    public void setDownloadRequestFactory(DownloadRequestFactory factory) {
+        downloadRequestFactory = factory;
+    }
+
+    public DownloadRequestBuilder download(Context context) {
+        return downloadRequestFactory.createNewRequest(context);
+    }
+
+
 }

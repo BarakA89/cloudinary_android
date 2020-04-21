@@ -175,7 +175,7 @@ public class ResponsiveUrl {
      * @param baseUrl   The base cloudinary Url to chain the transformation to.
      * @return The url with the responsive transformation.
      */
-    private Url buildUrl(View view, Url baseUrl) {
+    public Url buildUrl(View view, Url baseUrl) {
         // add a new transformation on top of anything already there:
         Url url = baseUrl.clone();
         url.transformation().chain();
