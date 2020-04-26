@@ -49,19 +49,32 @@ public class DownloadRequestBuilder {
         return this;
     }
 
-    public ActiveDownloadRequest into(ImageView imageView) {
+    public ActiveDownloadRequest into(final ImageView imageView) {
         downloadRequestStrategy.with(context);
+        final ActiveDownloadRequest activeDownloadRequest = new ActiveDownloadRequest(downloadRequestStrategy, imageView);
 
         Url url = MediaManager.get().url().publicId(publicId).transformation(transformation);
         if (responsive != null) {
-            url = responsive.buildUrl(imageView, url);
+            responsive.generate(url, imageView, new ResponsiveUrl.Callback() {
+                @Override
+                public void onUrlReady(Url url) {
+                    setUrl(activeDownloadRequest, url);
+                }
+            });
+        } else {
+            setUrl(activeDownloadRequest, url);
         }
-        downloadRequestStrategy.load(url.generate());
 
         if (placeholder != 0) {
             downloadRequestStrategy.placeholder(placeholder);
         }
 
-        return downloadRequestStrategy.into(imageView);
+        return activeDownloadRequest.start();
+    }
+
+    private void setUrl(ActiveDownloadRequest activeDownloadRequest, Url url) {
+        String generatedUrl = url.generate();
+        downloadRequestStrategy.load(generatedUrl);
+        activeDownloadRequest.setUrl(generatedUrl);
     }
 }

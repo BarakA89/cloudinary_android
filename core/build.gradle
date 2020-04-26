@@ -16,6 +16,7 @@ android {
         // files - to make sure the credentials are not checked into source control.
         // The url is taken from a property or environment variable:
         manifestPlaceholders = [cloudinaryUrl: getCloudinaryUrl() ?: ""]
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -64,6 +65,8 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    androidTestImplementation 'org.mockito:mockito-android:2.24.0'
 }
 
 ext {

@@ -66,15 +66,21 @@ class EffectsGalleryAdapter extends RecyclerView.Adapter<EffectsGalleryAdapter.I
         holder.nameTextView.setText(data.getName());
 
         // force image format (webp in this case) so that both video and images are downloaded as images.
-        Url baseUrl = MediaManager.get().url().format("webp").resourceType(resourceType).publicId(data.getPublicId()).transformation(data.getTransformation());
-        MediaManager.get().responsiveUrl(AUTO_FILL)
-                .stepSize(50)
-                .generate(baseUrl, holder.imageView, new ResponsiveUrl.Callback() {
-                    @Override
-                    public void onUrlReady(Url url) {
-                        Picasso.get().load(url.generate()).placeholder(R.drawable.placeholder).into(holder.imageView);
-                    }
-                });
+//        Url baseUrl = MediaManager.get().url().format("webp").resourceType(resourceType).publicId(data.getPublicId()).transformation(data.getTransformation());
+//        MediaManager.get().responsiveUrl(AUTO_FILL)
+//                .stepSize(50)
+//                .generate(baseUrl, holder.imageView, new ResponsiveUrl.Callback() {
+//                    @Override
+//                    public void onUrlReady(Url url) {
+//                        Picasso.get().load(url.generate()).placeholder(R.drawable.placeholder).into(holder.imageView);
+//                    }
+//                });
+        MediaManager.get().download(context)
+                .load(data.getPublicId())
+                .transformation(data.getTransformation())
+                .responsive(MediaManager.get().responsiveUrl(AUTO_FILL).stepSize(50))
+                .placeholder(R.drawable.placeholder)
+                .into(holder.imageView);
 
         if (selected != null && selected.equals(data)) {
             holder.selection.setVisibility(View.VISIBLE);

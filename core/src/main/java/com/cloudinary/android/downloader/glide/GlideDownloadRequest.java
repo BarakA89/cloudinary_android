@@ -5,13 +5,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.cloudinary.android.downloader.ActiveDownloadRequest;
+import com.cloudinary.android.downloader.DownloadRequest;
 
-public class GlideActiveDownloadRequest implements ActiveDownloadRequest {
+public class GlideDownloadRequest implements DownloadRequest {
 
     private final ViewTarget<ImageView, Drawable> target;
 
-    public GlideActiveDownloadRequest(ViewTarget<ImageView, Drawable> target) {
+    public GlideDownloadRequest(ViewTarget<ImageView, Drawable> target) {
         this.target = target;
     }
 

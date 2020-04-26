@@ -11,5 +11,5 @@ public interface DownloadRequestStrategy {
 
     DownloadRequestStrategy placeholder(int placeholder);
 
-    ActiveDownloadRequest into(ImageView imageView);
+    DownloadRequest into(ImageView imageView);
 }
